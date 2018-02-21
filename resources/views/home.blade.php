@@ -24,8 +24,8 @@
                     <?php foreach ($playlist as $key => $track): ?>
                       <tr>
                         <td>{{$track->id}}</td>
-                        <td>{{$track->artist_id}}</td>
-                        <td><a href="/track/{{$track->artist_id}}/{{$track->id}}/{{$track->name}}">{{$track->name}}</a></td>
+                        <td>{{$track->artist_name}}</td>
+                        <td><a href="/{{$track->share_url}}">{{$track->name}}</a></td>
                         <td>{{$track->publicPath}}</td>
                         <td>{{$track->coverPath}}</td>
                       </tr>

@@ -27,6 +27,11 @@ class HomeController extends Controller
     public function index()
     {
       $playlist = Track::where('artist_id','=',Auth::user()->id)->get();
+      foreach ($playlist as $track) {
+        $track->artist_name = Auth::user()->name;
+        $track->share_url = $track->artist_name.'/'.$track->id.'/'.$track->name;
+      }
+
       return view('home',['playlist' => $playlist]);
     }
 

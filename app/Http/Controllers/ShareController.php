@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use File;
 use App\Track;
+use App\User;
 
 class ShareController extends Controller
 {
@@ -54,10 +55,16 @@ class ShareController extends Controller
       return redirect('home');
     }
 
-    public function viewTrack($artist_id,$id,$trackName)
+    public function viewTrack($artist_name,$id,$trackName)
     {
-      $track = Track::where([['artist_id','=',$artist_id],['id','=',$id]])->get();
+      $artist = User::where('name','=',$artist_name)->get();
+      $track = Track::where([['artist_id','=',$artist->first()->id],['id','=',$id]])->get();
       $sharedTrack = $track->first();
+      $sharedTrack->artist = $artist->first()->name;
+      $sharedTrack->public_url = url('/'.$sharedTrack->artist.'/'.$sharedTrack->id.'/'.$sharedTrack->name);
+      $sharedTrack->public_cover = str_replace(' ','%20',asset($sharedTrack->coverPath));
+
+      //$sharedTrack->name = str_replace(' ','-',$sharedTrack->name);
       return view('share/player',['sharedTrack' => $sharedTrack]);
     }
 }

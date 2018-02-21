@@ -26,4 +26,4 @@ Route::get('/artist/upload', 'ShareController@upload')->name('artist/upload');
 Route::post('/artist/upload', 'ShareController@uploadPost')->name('artist/upload');
 
 
-Route::get('/track/{artist_id}/{id}/{trackName}', 'ShareController@viewTrack')->name('/track/{artist_id}/{id}/{trackName}');
+Route::get('/{artist_name}/{id}/{trackName}', 'ShareController@viewTrack')->name('/{artist_name}/{id}/{trackName}');
